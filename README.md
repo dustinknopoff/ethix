@@ -1,3 +1,4 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/81e0d604-4baa-4c5a-83e4-de3c11adf3ff/deploy-status)](https://app.netlify.com/sites/ethix-dk/deploys)
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
   <a href="https://www.gatsbyjs.org">
