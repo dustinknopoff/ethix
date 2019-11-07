@@ -6,21 +6,30 @@ import { MAROON } from "../components/shared_css"
 import { Search } from "react-feather"
 import useSearch from "../components/search"
 import { SearchContextProvider } from "../components/SearchContext"
+import { Results } from "../components/searchresult"
 
 const IndexPage = ({ data }) => {
   return (
-    <Layout>
+    <Layout showFooter>
       <SearchContextProvider>
         <div
           style={{
             display: "flex",
-            height: `80vh`,
+            height: `80vmin`,
             justifyContent: "center",
             flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <h1 style={{ color: MAROON, margin: `0` }}>ethix</h1>
-          <SearchForm index={data.siteSearchIndex.index} />
+          <div>
+            <Link to="/">
+              <h1 style={{ color: MAROON, margin: `0`, fontSize: "4vmax" }}>
+                ethix
+              </h1>
+            </Link>
+            <SearchForm index={data.siteSearchIndex.index} />
+            <Results />
+          </div>
         </div>
       </SearchContextProvider>
     </Layout>
@@ -56,7 +65,7 @@ const SearchForm = ({ index }) => {
           background: `none`,
         }}
       >
-        <Search />
+        <Search color={MAROON} />
       </button>
     </form>
   )

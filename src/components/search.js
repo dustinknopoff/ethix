@@ -4,7 +4,6 @@ import { SearchContext } from "./SearchContext"
 
 export const Search = searchIndex => {
   const [state, setState] = useContext(SearchContext)
-  console.log(state)
   const [index, setIndex] = useState(Index.load(searchIndex))
 
   const getOrCreateIndex = () =>

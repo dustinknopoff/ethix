@@ -7,6 +7,7 @@ import { MAROON } from "./shared_css"
 const Header = () => {
   const [state, setState] = useContext(UserContext)
   const { name, loggedIn } = state
+  console.log(state)
   return (
     <header>
       <div
@@ -42,7 +43,7 @@ const Fresh = () => (
   <Fragment>
     <li>
       <Link
-        to="/login"
+        to="/login/"
         style={{
           textDecoration: `none`,
         }}
@@ -52,7 +53,7 @@ const Fresh = () => (
     </li>
     <li>
       <Link
-        to="/login"
+        to="/login/"
         style={{
           textDecoration: `none`,
         }}

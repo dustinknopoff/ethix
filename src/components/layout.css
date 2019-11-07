@@ -2,6 +2,7 @@
   --maroon: #470235;
   --dark-green: #023b47;
   --dark-gray: #2a2b2a;
+  --radius: 4px;
 }
 
 html {
@@ -49,6 +50,7 @@ template {
 a {
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
+  text-decoration: none;
 }
 a:active,
 a:hover {
@@ -278,7 +280,7 @@ h3 {
   margin-bottom: 1.45rem;
   color: inherit;
   font-family: Avenir, sans-serif;
-  font-weight: bold;
+  font-weight: 300;
   text-rendering: optimizeLegibility;
   font-size: 1.38316rem;
   line-height: 1.1;
@@ -624,6 +626,11 @@ pre tt:before,
 pre tt:after {
   content: "";
 }
+
+span {
+  color: var(--maroon);
+}
+
 @media only screen and (max-width: 480px) {
   html {
     font-size: 100%;

@@ -10,8 +10,9 @@ import Header from "./header"
 import "./layout.css"
 import { UserContextProvider } from "./UserContext"
 import styled from "styled-components"
+import Footer from "./footer"
 
-const Layout = ({ children }) => {
+const Layout = ({ children, showFooter }) => {
   return (
     <Layer>
       <UserContextProvider>
@@ -24,12 +25,8 @@ const Layout = ({ children }) => {
             paddingTop: 0,
           }}
         >
-          <main>{children}</main>
-          <footer>
-            © {new Date().getFullYear()}, Built with
-            {` `}
-            <a href="https://www.gatsbyjs.org">Gatsby</a>
-          </footer>
+          <main style={{ maxHeight: "80vmin" }}>{children}</main>
+          {showFooter && <Footer />}
         </div>
       </UserContextProvider>
     </Layer>
