@@ -1,21 +1,26 @@
 import React, { useContext, useRef } from "react"
-import { RADIUS, MAROON } from "../components/shared_css"
+import { Button } from "../components/shared_css"
 
 import Layout from "../components/layout"
-import styled from "styled-components"
-import { useUserContext } from "../components/UserContext"
+import styled, { css } from "styled-components"
+import { UserContext } from "../components/UserContext"
 import { navigate } from "gatsby"
 
 const Login = () => {
-  const [updateUser] = useUserContext()
+  const [state, setState] = useContext(UserContext)
   const name = useRef(null)
   return (
-    <Layout>
+    <Layout displayCenter>
       <VerticalForm
-        onSubmit={async e => {
+        border={true}
+        onSubmit={e => {
           e.stopPropagation()
           e.preventDefault()
-          await updateUser(name.current.value)
+          setState(stt => ({
+            ...stt,
+            name: name.current.value,
+            loggedIn: true,
+          }))
           navigate("/profile/")
         }}
       >
@@ -31,23 +36,18 @@ const Login = () => {
   )
 }
 
-const VerticalForm = styled.form`
+export const VerticalForm = styled.form`
   display: flex;
   flex-direction: column;
   padding: 40px;
-  border: gray 1px solid;
-  border-radius: 4px;
+  ${props =>
+    props.border &&
+    css`
+      border: gray 1px solid;
+      border-radius: 4px;
+    `}
   align-content: center;
   justify-content: center;
-`
-
-const Button = styled.button`
-  background-color: #58a4b0;
-  border: none;
-  border-radius: ${RADIUS};
-  width: 60px;
-  color: ${MAROON};
-  margin: 10px;
 `
 
 export default Login

@@ -47,7 +47,7 @@ const Footer = () => (
 
 const Panels = styled.div`
   margin-top: 10vh;
-  min-height: 40vh;
+  height: 40vh;
   overflow: hidden;
   display: flex;
 `

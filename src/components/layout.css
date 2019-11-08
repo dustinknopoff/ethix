@@ -636,3 +636,12 @@ span {
     font-size: 100%;
   }
 }
+
+.pref-appear {
+  opacity: 0.01;
+}
+
+.pref-appear.pref-appear-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
