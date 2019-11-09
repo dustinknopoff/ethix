@@ -34,7 +34,7 @@ const Profile = () => {
           <h5>Preferences</h5>
         </HiddenButton>
       </div>
-      {!showPreferences && <Info />}
+      {!showPreferences && <Info data={state.info} name={state.name} />}
       {showPreferences && <Preferences />}
       <Button style={{ width: "140px" }} onClick={() => navigate("/")}>
         Start Searching
@@ -47,7 +47,7 @@ const Profile = () => {
   )
 }
 
-const Info = () => (
+const Info = ({ data, name }) => (
   <ReactCSSTransitionGroup
     transitionName="pref"
     transitionAppear={true}
@@ -57,11 +57,11 @@ const Info = () => (
   >
     <VerticalForm border={false} style={{ width: "15vw" }}>
       <label htmlFor="fname">Name</label>
-      <input type="text" name="fname" required />
+      <input type="text" name="fname" required defaultValue={name} />
       <label htmlFor="age">Age</label>
-      <input type="number" name="age" />
+      <input type="number" name="age" defaultValue={data.age} />
       <label htmlFor="loc">Location</label>
-      <input type="text" name="loc" />
+      <input type="text" name="loc" defaultValue={data.location} />
     </VerticalForm>
   </ReactCSSTransitionGroup>
 )

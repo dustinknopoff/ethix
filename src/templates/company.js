@@ -4,19 +4,26 @@ import { BarChart } from "react-chartkick"
 import "chart.js"
 import { UserContext } from "../components/UserContext"
 import Layout from "../components/layout"
+import { MAROON, DARK_GREEN } from "../components/shared_css"
+import { apply } from "../components/math"
 
 const Company = ({ data }) => {
-  const [state, setstate] = useContext(UserContext)
-  console.log([...state.preferences, ...state.defaultPreferences])
+  const [state] = useContext(UserContext)
+  let pref = state.preferences.map(([key, val]) => [
+    key,
+    apply[key](data.markdownRemark.frontmatter[key.replace(" ", "_")], val),
+  ])
+  let def = state.defaultPreferences.map(([key, val]) => [
+    key,
+    apply[key](data.markdownRemark.frontmatter[key.replace(" ", "_")], val),
+  ])
+  console.log(pref, def)
+  let info = [{ name: "Default", data: def }]
+  state.loggedIn && info.push({ name: "Preferences", data: pref })
   return (
     <Layout>
       <h1>{data.markdownRemark.frontmatter.title}</h1>
-      <BarChart
-        data={[
-          { name: "Preferences", data: state.preferences },
-          { name: "Default", data: state.defaultPreferences },
-        ]}
-      />
+      <BarChart data={info} colors={[DARK_GREEN, MAROON]} max={5} />
       <article
         dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
       ></article>
@@ -30,12 +37,14 @@ export const query = graphql`
   query CompanyQuery($title: String) {
     markdownRemark(frontmatter: { title: { eq: $title } }) {
       frontmatter {
-        age
+        Age_Match
         category
         imgSrc
-        labor
-        price
-        sustainability
+        Labor
+        Local_Source
+        Recent_Scandals
+        Price
+        Sustainability
         title
       }
       html

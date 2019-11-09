@@ -26,7 +26,7 @@ const SearchPage = ({ location, data }) => {
         </div>
         <div>
           <SearchForm index={data.siteSearchIndex.index} />
-          <Results />
+          <Results more />
           <pre>{JSON.stringify(search)}</pre>
         </div>
       </div>

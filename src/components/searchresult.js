@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from "react"
 import { SearchContext } from "./SearchContext"
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 import styled from "styled-components"
 import { MAROON } from "./shared_css"
 import { Search } from "react-feather"
@@ -41,18 +41,18 @@ const SearchForm = ({ index }) => {
   )
 }
 
-const Results = () => {
-  const [state] = useContext(SearchContext)
+const Results = ({ more }) => {
+  const [state, setSearch] = useContext(SearchContext)
   return state.results.length > 0 ? (
     <List>
       {state.results.map(res => (
         <li key={res.id} style={{ textDecoration: `none` }}>
-          <SearchResultSmall data={res} />
+          <SearchResultSmall data={res} setSearch={setSearch} />
         </li>
       ))}
       <li>
         <Link to="/search" state={{ ...state }}>
-          See All Results
+          {more ? "No More Results" : "See All Results"}
         </Link>
       </li>
     </List>
@@ -61,10 +61,15 @@ const Results = () => {
   )
 }
 
-const SearchResultSmall = ({ data }) => {
+const SearchResultSmall = ({ data, setSearch }) => {
   const { category, price, title, imgSrc, path } = data
   return (
-    <Lnk as={Link} to={`/${path}`}>
+    <Lnk
+      onClick={() => {
+        navigate(`/${path}`)
+        setSearch(state => ({ ...state, query: ``, results: [], start: true }))
+      }}
+    >
       <img src={imgSrc} style={{ width: "10vw" }} alt={`${title}'s logo`} />
       <div style={{ paddingLeft: "10px" }}>
         <h5>{title}</h5>
@@ -81,8 +86,10 @@ const SearchResultSmall = ({ data }) => {
   )
 }
 
-const Lnk = styled.div`
+const Lnk = styled.button`
   display: flex;
+  border: none;
+  background: none;
 `
 
 const List = styled.ul`
