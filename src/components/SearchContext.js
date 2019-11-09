@@ -6,6 +6,7 @@ const SearchContextProvider = props => {
   const [state, setState] = useState({
     query: ``,
     results: [],
+    start: true,
   })
   return (
     <SearchContext.Provider value={[state, setState]}>

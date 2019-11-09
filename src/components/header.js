@@ -1,5 +1,6 @@
-import { Link, navigate } from "gatsby"
 import React, { useContext, Fragment } from "react"
+
+import { Link, navigate } from "gatsby"
 import styled from "styled-components"
 import { UserContext } from "./UserContext"
 import { MAROON } from "./shared_css"
@@ -7,7 +8,6 @@ import { MAROON } from "./shared_css"
 const Header = () => {
   const [state, setState] = useContext(UserContext)
   const { name, loggedIn } = state
-  console.log(state)
   return (
     <header>
       <div

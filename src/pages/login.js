@@ -7,7 +7,7 @@ import { UserContext } from "../components/UserContext"
 import { navigate } from "gatsby"
 
 const Login = () => {
-  const [state, setState] = useContext(UserContext)
+  const [, setState] = useContext(UserContext)
   const name = useRef(null)
   return (
     <Layout displayCenter>

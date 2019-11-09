@@ -22,8 +22,9 @@ export const Search = searchIndex => {
         .search(query, { expand: true }) // Accept partial matches
         // Map over each ID and return the full document
         .map(({ ref }) => index.documentStore.getDoc(ref)),
+      start: false,
     }))
-    console.log(query, state)
+    // console.log(query, state)
   }
 
   return [state, search]

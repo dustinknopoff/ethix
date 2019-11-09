@@ -21,7 +21,7 @@ const Profile = () => {
 
   useEffect(() => {
     !loggedIn && navigate("/login")
-  }, [])
+  }, [loggedIn])
 
   return loggedIn ? (
     <Layout>
@@ -122,6 +122,10 @@ const Preferences = () => {
         </VerticalForm>
         <PieChart data={state.preferences} max={100} />
       </div>
+      <span>
+        Adjust the values of these categories to have ethix create a custom
+        score based on your preferences
+      </span>
     </ReactCSSTransitionGroup>
   )
 }
