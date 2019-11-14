@@ -1,6 +1,6 @@
 import React from "react"
 import { ChevronDown } from "react-feather"
-import { MAROON } from "./shared_css"
+import { PRIMARY, BASIC } from "./shared_css"
 import styled from "styled-components"
 
 const Footer = () => (
@@ -9,12 +9,21 @@ const Footer = () => (
       display: `flex`,
       flexDirection: `column`,
       alignItems: `center`,
-      color: MAROON,
+      color: BASIC,
     }}
   >
-    <span>Tell Me More</span>
-    <ChevronDown size={60} color={MAROON} />
-    <Panels>
+    <a
+      href="#info"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <span>Tell Me More</span>
+      <ChevronDown size={60} color={PRIMARY} />
+    </a>
+    <Panels name="info">
       <Panel
         src={
           "https://res.cloudinary.com/dknopoff/image/upload/e_improve,w_300,h_600,c_thumb,g_auto/v1573138553/ethix/marianne-krohn-ZEn36ZMaloc-unsplash.jpg"
@@ -50,6 +59,7 @@ const Panels = styled.div`
   height: 40vh;
   overflow: hidden;
   display: flex;
+  max-width: 960px;
 `
 
 const Panel = styled.img`

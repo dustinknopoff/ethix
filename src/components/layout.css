@@ -1,7 +1,7 @@
 :root {
-  --maroon: #470235;
-  --dark-green: #023b47;
-  --dark-gray: #2a2b2a;
+  --primary: #4b627d;
+  --secondary: #01912a;
+  --basic: #2a2b2a;
   --radius: 4px;
 }
 
@@ -15,6 +15,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Avenir";
+  background-color: #fefefe;
+  color: var(--basic);
 }
 article,
 aside,
@@ -72,7 +74,7 @@ dfn {
 h1 {
   font-size: 25vw;
   margin: 0.67em 0;
-  color: var(--maroon);
+  color: var(--primary);
 }
 mark {
   background-color: #ff0;
@@ -214,7 +216,7 @@ html {
   box-sizing: inherit;
 }
 body {
-  color: hsla(0, 0%, 0%, 0.8);
+  /* color: hsla(0, 0%, 0%, 0.8); */
   font-family: "Avenir", sans-serif;
   font-weight: normal;
   word-wrap: break-word;
@@ -282,7 +284,7 @@ h3 {
   font-family: Avenir, sans-serif;
   font-weight: 300;
   text-rendering: optimizeLegibility;
-  font-size: 1.38316rem;
+  font-size: 36px;
   line-height: 1.1;
 }
 h4 {
@@ -628,7 +630,7 @@ pre tt:after {
 }
 
 span {
-  color: var(--maroon);
+  color: var(--primary);
 }
 
 @media only screen and (max-width: 480px) {

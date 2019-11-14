@@ -1,8 +1,8 @@
 import styled from "styled-components"
 
-export const MAROON = "#470235"
-export const DARK_GREEN = "#023B47"
-export const DARK_GRAY = "#2A2B2A"
+export const PRIMARY = "#4B627D"
+export const SECONDARY = "#01912a"
+export const BASIC = "#2a2b2a"
 export const RADIUS = "4px"
 
 export const Button = styled.button`
@@ -10,6 +10,6 @@ export const Button = styled.button`
   border: none;
   border-radius: ${RADIUS};
   width: 60px;
-  color: ${MAROON};
+  color: white;
   margin: 10px;
 `

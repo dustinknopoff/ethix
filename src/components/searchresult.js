@@ -2,7 +2,7 @@ import React, { useContext, useRef } from "react"
 import { SearchContext } from "./SearchContext"
 import { Link, navigate } from "gatsby"
 import styled from "styled-components"
-import { MAROON } from "./shared_css"
+import { PRIMARY } from "./shared_css"
 import { Search } from "react-feather"
 import useSearch from "../components/search"
 
@@ -35,7 +35,7 @@ const SearchForm = ({ index }) => {
           background: `none`,
         }}
       >
-        <Search color={MAROON} />
+        <Search color={PRIMARY} />
       </button>
     </form>
   )
@@ -72,7 +72,14 @@ const SearchResultSmall = ({ data, setSearch }) => {
     >
       <img src={imgSrc} style={{ width: "10vw" }} alt={`${title}'s logo`} />
       <div style={{ paddingLeft: "10px" }}>
-        <h5>{title}</h5>
+        <h5
+          style={{
+            fontWeight: 400,
+            fontSize: "24px",
+          }}
+        >
+          {title}
+        </h5>
         <div style={{ display: "flex" }}>
           <span>{category}</span>
           <span style={{ paddingLeft: "10px" }}>

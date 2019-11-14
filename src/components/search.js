@@ -24,7 +24,6 @@ export const Search = searchIndex => {
         .map(({ ref }) => index.documentStore.getDoc(ref)),
       start: false,
     }))
-    // console.log(query, state)
   }
 
   return [state, search]

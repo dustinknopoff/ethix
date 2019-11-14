@@ -6,9 +6,14 @@ import { VerticalForm } from "./login"
 import { PieChart } from "react-chartkick"
 import "chart.js"
 import { UserContext } from "../components/UserContext"
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 import ReactCSSTransitionGroup from "react-addons-css-transition-group"
 import { Button } from "../components/shared_css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { fab } from "@fortawesome/free-brands-svg-icons"
+import { fas } from "@fortawesome/free-solid-svg-icons"
+import Sortable from "../components/Sortable"
+import arrayMove from "array-move"
 
 // Chartkick.options = {
 //   colors: ["#b00", "#666"],
@@ -26,11 +31,18 @@ const Profile = () => {
   return loggedIn ? (
     <Layout>
       <h3 style={{ marginTop: "20px" }}>Profile</h3>
-      <div style={{ width: 960 }}>
-        <HiddenButton onClick={() => setShowPreferences(false)}>
+      <div style={{ width: "80vw" }}>
+        <HiddenButton
+          onClick={() => setShowPreferences(false)}
+          left
+          active={!showPreferences}
+        >
           <h5>Info</h5>
         </HiddenButton>
-        <HiddenButton onClick={() => setShowPreferences(true)}>
+        <HiddenButton
+          onClick={() => setShowPreferences(true)}
+          active={showPreferences}
+        >
           <h5>Preferences</h5>
         </HiddenButton>
       </div>
@@ -83,6 +95,14 @@ const Preferences = () => {
     }
   }
 
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    const { preferences } = state
+    setState(stt => ({
+      ...stt,
+      preferences: arrayMove(preferences, oldIndex, newIndex),
+    }))
+  }
+
   return (
     <ReactCSSTransitionGroup
       transitionName="pref"
@@ -107,7 +127,7 @@ const Preferences = () => {
               <FormElement key={name}>
                 <label htmlFor={name}>{name}</label>
                 <input
-                  type="number"
+                  type="range"
                   name={name}
                   defaultValue={value}
                   onChange={e => {
@@ -119,6 +139,12 @@ const Preferences = () => {
               </FormElement>
             )
           })}
+          <label htmlFor="la">
+            Labor
+            <FontAwesomeIcon icon={fab.faEnvira} />
+          </label>
+          <Sortable items={state.preferences} onSortEnd={onSortEnd} />
+          <input type="range" min="1" max="5" name="la" />
         </VerticalForm>
         <PieChart data={state.preferences} max={100} />
       </div>
@@ -146,7 +172,22 @@ const FormElement = styled.div`
 
 const HiddenButton = styled.button`
   border: none;
-  background: none;
+  height: 24px;
+  background: var(--primary);
+  color: white;
+  border-radius: ${props => (props.left ? "4px 0 0 4px" : "0 4px 4px 0")};
+  padding: 5px;
+  ${props =>
+    props.left &&
+    css`
+      border-right: solid 1px white;
+    `};
+  ${props =>
+    !props.active &&
+    css`
+      color: gray;
+      background: #efefef;
+    `}
 `
 
 export default Profile

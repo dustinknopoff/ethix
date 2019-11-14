@@ -8,6 +8,7 @@
 import React from "react"
 import { UserContextProvider } from "./src/components/UserContext"
 import { SearchContextProvider } from "./src/components/SearchContext"
+
 export const wrapRootElement = ({ element }) => (
   <UserContextProvider>
     <SearchContextProvider>{element}</SearchContextProvider>
