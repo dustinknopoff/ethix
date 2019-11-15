@@ -10,21 +10,19 @@ const UserContextProvider = props => {
       age: 0,
       location: "",
     },
-    preferences: [
-      ["Labor", 17],
-      ["Sustainability", 16],
-      ["Age Match", 16],
-      ["Local Source", 17],
-      ["Recent Scandals", 17],
-      ["Price", 17],
+    categories: [
+      "Labor",
+      "Sustainability",
+      "Local Source",
+      "Recent Scandals",
+      "Price",
     ],
-    defaultPreferences: [
-      ["Labor", 17],
-      ["Sustainability", 16],
-      ["Age Match", 16],
-      ["Local Source", 17],
-      ["Recent Scandals", 17],
-      ["Price", 17],
+    defaultCategories: [
+      "Labor",
+      "Sustainability",
+      "Local Source",
+      "Recent Scandals",
+      "Price",
     ],
   })
   return (

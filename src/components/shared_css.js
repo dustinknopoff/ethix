@@ -13,3 +13,12 @@ export const Button = styled.button`
   color: white;
   margin: 10px;
 `
+
+export const VizColors = [
+  "#00919d",
+  "#23475c",
+  "#f95136",
+  "#ffa700",
+  "#00c5ce",
+  "#bce7d3",
+]

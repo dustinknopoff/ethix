@@ -3,21 +3,13 @@ import { navigate } from "gatsby"
 
 import Layout from "../components/layout"
 import { VerticalForm } from "./login"
-import { PieChart } from "react-chartkick"
 import "chart.js"
 import { UserContext } from "../components/UserContext"
 import styled, { css } from "styled-components"
 import ReactCSSTransitionGroup from "react-addons-css-transition-group"
 import { Button } from "../components/shared_css"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { fab } from "@fortawesome/free-brands-svg-icons"
-import { fas } from "@fortawesome/free-solid-svg-icons"
-import Sortable from "../components/Sortable"
+import Sortable from "../components/sortable"
 import arrayMove from "array-move"
-
-// Chartkick.options = {
-//   colors: ["#b00", "#666"],
-// }
 
 const Profile = () => {
   const [showPreferences, setShowPreferences] = useState(false)
@@ -81,25 +73,11 @@ const Info = ({ data, name }) => (
 const Preferences = () => {
   const [state, setState] = useContext(UserContext)
 
-  const onChange = (name, currTarget, max) => {
-    const { preferences } = state
-    if (currTarget.value > max) {
-      currTarget.value = max
-    }
-    const idx = preferences.findIndex(([key, val]) => {
-      return key === name
-    })
-    if (idx !== -1) {
-      preferences[idx] = [name, currTarget.value]
-      setState(stt => ({ ...stt, preferences }))
-    }
-  }
-
   const onSortEnd = ({ oldIndex, newIndex }) => {
-    const { preferences } = state
+    const { categories } = state
     setState(stt => ({
       ...stt,
-      preferences: arrayMove(preferences, oldIndex, newIndex),
+      categories: arrayMove(categories, oldIndex, newIndex),
     }))
   }
 
@@ -118,35 +96,8 @@ const Preferences = () => {
         }}
       >
         <VerticalForm border={false}>
-          {state.preferences.map(([name, value]) => {
-            const max = state.preferences.reduce((acc, [n, v]) => {
-              if (name === n) return acc
-              return acc - v
-            }, 100)
-            return (
-              <FormElement key={name}>
-                <label htmlFor={name}>{name}</label>
-                <input
-                  type="range"
-                  name={name}
-                  defaultValue={value}
-                  onChange={e => {
-                    onChange(name, e.currentTarget, max)
-                  }}
-                  min={0}
-                  max={max}
-                />
-              </FormElement>
-            )
-          })}
-          <label htmlFor="la">
-            Labor
-            <FontAwesomeIcon icon={fab.faEnvira} />
-          </label>
-          <Sortable items={state.preferences} onSortEnd={onSortEnd} />
-          <input type="range" min="1" max="5" name="la" />
+          <Sortable items={state.categories} onSortEnd={onSortEnd} />
         </VerticalForm>
-        <PieChart data={state.preferences} max={100} />
       </div>
       <span>
         Adjust the values of these categories to have ethix create a custom

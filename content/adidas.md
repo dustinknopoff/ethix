@@ -1,7 +1,7 @@
 ---
 title: Adidas
 category: Clothing
-Price: 2
+Price: 5
 Labor: 4
 Sustainability: 3
 "Age Match": "20-40"

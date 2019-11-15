@@ -1,16 +1,31 @@
 import { SortableContainer, SortableElement } from "react-sortable-hoc"
 import React from "react"
+import styled from "styled-components"
+import { categoryToIcon } from "./math"
 
-const SortableItem = SortableElement(({ value }) => <li>{value}</li>)
+// https://stackoverflow.com/questions/1224433/how-can-i-disable-highlighting-in-html-or-js
+const SortableItem = SortableElement(({ value }) => (
+  <NoHighLight as="li" style={{ listStyle: "number" }}>
+    <div style={{ padding: "10px" }}>
+      <span style={{ marginRight: "10px" }}>{value}</span>
+      {categoryToIcon[value]}
+    </div>
+  </NoHighLight>
+))
 
 const SortableList = SortableContainer(({ items }) => {
   return (
-    <ul>
+    <NoHighLight as={"ul"} style={{ listStyle: "number" }}>
       {items.map((value, index) => (
         <SortableItem key={`item-${value}`} index={index} value={value} />
       ))}
-    </ul>
+    </NoHighLight>
   )
 })
+
+const NoHighLight = styled.ul`
+  user-select: none;
+  -moz-user-select: none;
+`
 
 export default SortableList
