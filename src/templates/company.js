@@ -5,7 +5,7 @@ import "chart.js"
 import { UserContext } from "../components/UserContext"
 import Layout from "../components/layout"
 import { BASIC, VizColors } from "../components/shared_css"
-import { apply } from "../components/math"
+import { apply, numberToGrade } from "../components/math"
 
 const Company = ({ data }) => {
   const [state, setState] = React.useContext(UserContext)
@@ -30,7 +30,19 @@ const Company = ({ data }) => {
         ]
       }),
     })
-
+  let unweighted_sum =
+    state.defaultCategories.reduce((acc, val, idx) => {
+      let vll = data.markdownRemark.frontmatter[val.replace(" ", "_")]
+      return acc + vll
+    }, 0) / state.categories.length
+  let weighted_sum = state.categories.reduce((acc, val, idx) => {
+    let vll = apply(
+      data.markdownRemark.frontmatter[val.replace(" ", "_")],
+      5 - idx
+    )
+    return acc + vll
+  }, 0)
+  console.log(weighted_sum)
   return (
     <Layout>
       <h1 style={{ fontSize: "72px", paddingTop: "40px" }}>

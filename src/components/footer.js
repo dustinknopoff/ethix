@@ -51,6 +51,12 @@ const Footer = () => (
       companies for your age group to sustainability practices, we provide
       scores for over 100 brands defining how they align with you.
     </p>
+    <div>
+      <h3>Placeholder: Labor Info</h3>
+      <h3>Placeholder: Sustainability</h3>
+      <h3>Placeholder: Age Match</h3>
+      <h3>Placeholder: Recent Scandals</h3>
+    </div>
   </div>
 )
 

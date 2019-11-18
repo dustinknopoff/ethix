@@ -22,12 +22,16 @@ const SearchPage = ({ location, data }) => {
       <p>Searching</p>
       <div style={{ display: "flex" }}>
         <div>
-          <span>Categories</span>
+          {data.site.siteMetadata.categories.map(name => (
+            <span key={name}>{name}</span>
+          ))}
         </div>
         <div>
-          <SearchForm index={data.siteSearchIndex.index} />
+          <SearchForm
+            index={data.siteSearchIndex.index}
+            existing={search.query}
+          />
           <Results more />
-          <pre>{JSON.stringify(search)}</pre>
         </div>
       </div>
     </Layout>
@@ -38,6 +42,11 @@ export const query = graphql`
   query SearchIndexer {
     siteSearchIndex {
       index
+    }
+    site {
+      siteMetadata {
+        categories
+      }
     }
   }
 `

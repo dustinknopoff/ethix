@@ -15,3 +15,20 @@ export const categoryToIcon = {
   "Recent Scandals": <FontAwesomeIcon icon={fas.faHourglassStart} />,
   "Age Match": <FontAwesomeIcon icon={fas.faHourglassStart} />,
 }
+
+export const numberToGrade = val => {
+  let num = parseInt(val < 1 ? val * 100 : val)
+  if (num <= 50) return "F"
+  if (num <= 63) return "D-"
+  if (num <= 66) return "D"
+  if (num <= 69) return "D+"
+  if (num <= 73) return "C-"
+  if (num <= 76) return "C"
+  if (num <= 79) return "C+"
+  if (num <= 83) return "B-"
+  if (num <= 86) return "B"
+  if (num <= 89) return "B+"
+  if (num <= 93) return "A-"
+  if (num <= 96) return "A"
+  if (num <= 100) return "A+"
+}

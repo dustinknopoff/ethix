@@ -6,7 +6,7 @@ import { PRIMARY } from "./shared_css"
 import { Search } from "react-feather"
 import useSearch from "../components/search"
 
-const SearchForm = ({ index }) => {
+const SearchForm = ({ index, existing }) => {
   const [, search] = useSearch(index)
   const ipt = useRef(null)
   return (
@@ -25,6 +25,7 @@ const SearchForm = ({ index }) => {
         placeholder="Start your search here"
         style={{ width: "50vw" }}
         ref={ipt}
+        defaultValue={existing}
       ></input>
       <button
         style={{
