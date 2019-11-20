@@ -17,7 +17,7 @@ const Profile = () => {
   const { loggedIn } = state
 
   useEffect(() => {
-    !loggedIn && navigate("/login")
+    !loggedIn && navigate("/login", { replace: "/" })
   }, [loggedIn])
 
   return loggedIn ? (
@@ -89,6 +89,10 @@ const Preferences = () => {
       transitionEnter={false}
       transitionLeave={false}
     >
+      <p style={{ marginTop: "20px" }}>
+        Click and drag to rearrange these core categories to match your
+        priorities.
+      </p>
       <div
         style={{
           display: "flex",
@@ -99,27 +103,23 @@ const Preferences = () => {
           <Sortable items={state.categories} onSortEnd={onSortEnd} />
         </VerticalForm>
       </div>
-      <span>
-        Adjust the values of these categories to have ethix create a custom
-        score based on your preferences
-      </span>
     </ReactCSSTransitionGroup>
   )
 }
 
-const FormElement = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+// const FormElement = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
 
-  > label {
-    padding-right: 10px;
-  }
+//   > label {
+//     padding-right: 10px;
+//   }
 
-  > * {
-    margin: 10px;
-  }
-`
+//   > * {
+//     margin: 10px;
+//   }
+// `
 
 const HiddenButton = styled.button`
   border: none;

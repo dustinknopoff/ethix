@@ -25,6 +25,12 @@ const IndexPage = ({ data }) => {
           </Link>
           <SearchForm index={data.siteSearchIndex.index} />
           <Results />
+          <span>
+            Brand discovery that matches what you care about.
+            <a href="#info" style={{ marginLeft: "20px" }}>
+              See how it works
+            </a>
+          </span>
         </div>
       </div>
     </Layout>

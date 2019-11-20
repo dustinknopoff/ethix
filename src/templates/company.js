@@ -1,14 +1,14 @@
-import React, { useContext } from "react"
-import { graphql } from "gatsby"
-import { BarChart } from "react-chartkick"
+import React from "react"
+import { graphql, Link } from "gatsby"
 import "chart.js"
 import { UserContext } from "../components/UserContext"
 import Layout from "../components/layout"
-import { BASIC, VizColors } from "../components/shared_css"
+import { BASIC } from "../components/shared_css"
 import { apply, numberToGrade } from "../components/math"
+import { BarChart } from "react-chartkick"
 
 const Company = ({ data }) => {
-  const [state, setState] = React.useContext(UserContext)
+  const [state] = React.useContext(UserContext)
   let info = [
     {
       name: "Default",
@@ -32,17 +32,16 @@ const Company = ({ data }) => {
     })
   let unweighted_sum =
     state.defaultCategories.reduce((acc, val, idx) => {
-      let vll = data.markdownRemark.frontmatter[val.replace(" ", "_")]
+      let vll =
+        (data.markdownRemark.frontmatter[val.replace(" ", "_")] / 5) * 100
       return acc + vll
-    }, 0) / state.categories.length
+    }, 0) / state.defaultCategories.length
   let weighted_sum = state.categories.reduce((acc, val, idx) => {
-    let vll = apply(
-      data.markdownRemark.frontmatter[val.replace(" ", "_")],
-      5 - idx
-    )
+    let vll =
+      parseFloat(data.markdownRemark.frontmatter[val.replace(" ", "_")]) *
+      (5 - idx)
     return acc + vll
   }, 0)
-  console.log(weighted_sum)
   return (
     <Layout>
       <h1 style={{ fontSize: "72px", paddingTop: "40px" }}>
@@ -56,7 +55,48 @@ const Company = ({ data }) => {
           library={{ fontColor: BASIC }}
           round={2}
         />
-        <h1 style={{ fontSize: "72px", flexGrow: 2, padding: "80px" }}>A</h1>
+        <div
+          style={{
+            flexGrow: 2,
+            padding: "80px",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          {state.loggedIn && (
+            <div>
+              <h1 style={{ fontSize: "10vmin", textAlign: "center" }}>
+                <span style={{ color: "#4a7b7c" }}>
+                  {numberToGrade(weighted_sum)}
+                </span>
+              </h1>
+              <Link to="/profile">Based on your criteria</Link>
+            </div>
+          )}
+          <div>
+            <h1
+              style={{
+                fontSize: state.loggedIn ? "5vmin" : "10vmin",
+                textAlign: "center",
+              }}
+            >
+              <span>{numberToGrade(unweighted_sum)}</span>
+            </h1>
+            <Link
+              to="/profile"
+              style={{
+                textAlign: "center",
+                fontSize: state.loggedIn && "18px",
+              }}
+            >
+              {state.loggedIn
+                ? "Raw Score"
+                : `Create an account to see how 
+              ${data.markdownRemark.frontmatter.title} matches with what you care
+              about!`}
+            </Link>
+          </div>
+        </div>
       </div>
       <article
         dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
