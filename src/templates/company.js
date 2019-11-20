@@ -7,6 +7,14 @@ import { BASIC } from "../components/shared_css"
 import { apply, numberToGrade } from "../components/math"
 import { BarChart } from "react-chartkick"
 
+const numToWeight = {
+  5: 45,
+  4: 25,
+  3: 15,
+  2: 10,
+  1: 5,
+}
+
 const Company = ({ data }) => {
   const [state] = React.useContext(UserContext)
   let info = [
@@ -36,12 +44,18 @@ const Company = ({ data }) => {
         (data.markdownRemark.frontmatter[val.replace(" ", "_")] / 5) * 100
       return acc + vll
     }, 0) / state.defaultCategories.length
-  let weighted_sum = state.categories.reduce((acc, val, idx) => {
-    let vll =
-      parseFloat(data.markdownRemark.frontmatter[val.replace(" ", "_")]) *
-      (5 - idx)
-    return acc + vll
-  }, 0)
+  let weighted_sum =
+    state.categories.reduce((acc, val, idx) => {
+      let out_of_one_h =
+        (parseFloat(data.markdownRemark.frontmatter[val.replace(" ", "_")]) /
+          5) *
+        100
+      let weight = numToWeight[5 - idx] / 100
+      let vll = out_of_one_h * weight
+      console.log(vll * 5)
+      return acc + vll * 5
+    }, 0) / state.categories.length
+  console.log(weighted_sum)
   return (
     <Layout>
       <h1 style={{ fontSize: "72px", paddingTop: "40px" }}>

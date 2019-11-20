@@ -2,11 +2,11 @@
 title: Adidas
 category: Clothing
 Price: 5
-Labor: 4
-Sustainability: 3
+Labor: 3
+Sustainability: 5
 "Age Match": "20-40"
-"Local Source": 1
-"Recent Scandals": 5
+"Local Source": 5
+"Recent Scandals": 2
 imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/1200px-Adidas_Logo.svg.png"
 excerpt: "Adidas is owned by Adidas Group. Its environmental rating is 'good'. It uses a medium proportion of eco-friendly materials including recycled materials."
 ---
