@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
@@ -6,6 +6,28 @@ import { PRIMARY } from "../components/shared_css"
 import { Results, SearchForm } from "../components/searchresult"
 
 const IndexPage = ({ data }) => {
+  useEffect(() => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function(e) {
+        e.preventDefault()
+
+        document.querySelector(anchor.getAttribute("href")).scrollIntoView({
+          behavior: "smooth",
+        })
+      })
+    })
+    return () => {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.removeEventListener("click", function(e) {
+          e.preventDefault()
+
+          document.querySelector(anchor.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          })
+        })
+      })
+    }
+  }, [])
   return (
     <Layout showFooter>
       <div

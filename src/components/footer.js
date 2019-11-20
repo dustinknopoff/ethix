@@ -23,7 +23,7 @@ const Footer = () => (
       <span>Tell Me More</span>
       <ChevronDown size={60} color={PRIMARY} />
     </a>
-    <Panels name="info">
+    <Panels name="info" id="info">
       <Panel
         src={
           "https://res.cloudinary.com/dknopoff/image/upload/e_improve,w_300,h_600,c_thumb,g_auto/v1573138553/ethix/marianne-krohn-ZEn36ZMaloc-unsplash.jpg"
