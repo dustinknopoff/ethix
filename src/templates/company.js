@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { graphql, Link } from "gatsby"
 import "chart.js"
 import { UserContext } from "../components/UserContext"
@@ -6,6 +6,7 @@ import Layout from "../components/layout"
 import { BASIC } from "../components/shared_css"
 import { apply, numberToGrade } from "../components/math"
 import { BarChart } from "react-chartkick"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 
 const numToWeight = {
   5: 45,
@@ -21,7 +22,7 @@ const Company = ({ data }) => {
     {
       name: "Default",
       data: state.defaultCategories.map((val, idx) => {
-        return [val, data.markdownRemark.frontmatter[val.replace(" ", "_")]]
+        return [val, data.mdx.frontmatter[val.replace(" ", "_")]]
       }),
     },
   ]
@@ -31,35 +32,28 @@ const Company = ({ data }) => {
       data: state.categories.map((val, idx) => {
         return [
           val,
-          apply(
-            data.markdownRemark.frontmatter[val.replace(" ", "_")],
-            5 - idx
-          ),
+          parseInt(apply(data.mdx.frontmatter[val.replace(" ", "_")], 5 - idx)),
         ]
       }),
     })
   let unweighted_sum =
     state.defaultCategories.reduce((acc, val, idx) => {
-      let vll =
-        (data.markdownRemark.frontmatter[val.replace(" ", "_")] / 5) * 100
+      let vll = (data.mdx.frontmatter[val.replace(" ", "_")] / 5) * 100
       return acc + vll
     }, 0) / state.defaultCategories.length
   let weighted_sum =
     state.categories.reduce((acc, val, idx) => {
       let out_of_one_h =
-        (parseFloat(data.markdownRemark.frontmatter[val.replace(" ", "_")]) /
-          5) *
-        100
+        (parseFloat(data.mdx.frontmatter[val.replace(" ", "_")]) / 5) * 100
       let weight = numToWeight[5 - idx] / 100
       let vll = out_of_one_h * weight
-      console.log(vll * 5)
       return acc + vll * 5
     }, 0) / state.categories.length
-  console.log(weighted_sum)
+
   return (
     <Layout>
       <h1 style={{ fontSize: "72px", paddingTop: "40px" }}>
-        {data.markdownRemark.frontmatter.title}
+        {data.mdx.frontmatter.title}
       </h1>
       <div style={{ display: "flex", alignItems: "center" }}>
         <BarChart
@@ -106,16 +100,15 @@ const Company = ({ data }) => {
               {state.loggedIn
                 ? "Raw Score"
                 : `Create an account to see how 
-              ${data.markdownRemark.frontmatter.title} matches with what you care
+              ${data.mdx.frontmatter.title} matches with what you care
               about!`}
             </Link>
           </div>
         </div>
       </div>
-      <article
-        dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
-        style={{ columnCount: 2 }}
-      ></article>
+      <article style={{ columnCount: 2 }}>
+        <MDXRenderer>{data.mdx.body}</MDXRenderer>
+      </article>
     </Layout>
   )
 }
@@ -124,9 +117,8 @@ export default Company
 
 export const query = graphql`
   query CompanyQuery($title: String) {
-    markdownRemark(frontmatter: { title: { eq: $title } }) {
+    mdx(frontmatter: { title: { eq: $title } }) {
       frontmatter {
-        Age_Match
         category
         imgSrc
         Labor
@@ -136,7 +128,7 @@ export const query = graphql`
         Sustainability
         title
       }
-      html
+      body
       excerpt(pruneLength: 120)
       fields {
         slug

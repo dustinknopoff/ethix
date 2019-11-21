@@ -22,3 +22,9 @@ export const VizColors = [
   "#00c5ce",
   "#bce7d3",
 ]
+
+export const SpacedElements = styled.div`
+  & > * {
+    margin: 0 10px;
+  }
+`

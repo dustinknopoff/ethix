@@ -25,6 +25,7 @@ module.exports = {
       },
     },
     `gatsby-transformer-remark`,
+    `gatsby-plugin-mdx`,
     {
       resolve: `@gatsby-contrib/gatsby-plugin-elasticlunr-search`,
       options: {
@@ -33,7 +34,7 @@ module.exports = {
         // How to resolve each field`s value for a supported node type
         resolvers: {
           // For any node of type MarkdownRemark, list how to resolve the fields` values
-          MarkdownRemark: {
+          Mdx: {
             title: node => node.frontmatter.title,
             path: node => node.fields.slug,
             category: node => node.frontmatter.category,

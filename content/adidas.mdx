@@ -2,14 +2,19 @@
 title: Adidas
 category: Clothing
 Price: 5
-Labor: 3
-Sustainability: 5
-"Age Match": "20-40"
+Labor: 2
+Sustainability: 3
 "Local Source": 5
-"Recent Scandals": 2
+"Recent Scandals": 5
 imgSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/1200px-Adidas_Logo.svg.png"
 excerpt: "Adidas is owned by Adidas Group. Its environmental rating is 'good'. It uses a medium proportion of eco-friendly materials including recycled materials."
 ---
+
+import { categoryToIcon } from "../src/components/math.js"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { fab } from "@fortawesome/free-brands-svg-icons"
+import { fas } from "@fortawesome/free-solid-svg-icons"
+import { SpacedElements } from "../src/components/shared_css.js"
 
 Adidas is owned by Adidas Group.
 
@@ -18,3 +23,38 @@ Its environmental rating is 'good'. It uses a medium proportion of eco-friendly 
 Its labour rating is 'good' based on the 2018 Ethical Fashion Report. It has a Code of Conduct that covers all of the ILO principles. It traces most of its supply chain including all of the final and second stages of production. It audits most of its traced facilities. Only some of its facilities have worker empowerment initiatives such as collective bargaining or rights to make a complaint. It has made little to no progress towards paying ensuring payment of a living wage in its supply chain.
 
 Its animal rating is 'it's a start'. It uses down and leather. It uses wool from non-mulesed sheep. It does not use angora, fur or any exotic animal skin or hair.
+
+<SpacedElements as="h3">
+  {categoryToIcon["Labor"]}
+  Labor
+</SpacedElements>
+
+Placeholder
+
+<SpacedElements as="h3">
+  {categoryToIcon["Sustainability"]}
+  Sustainabilty
+</SpacedElements>
+
+Placeholder
+
+<SpacedElements as="h3">
+  {categoryToIcon["Price"]}
+  Price
+</SpacedElements>
+
+Placeholder
+
+<SpacedElements as="h3">
+  {categoryToIcon["Local Source"]}
+  Local Source
+</SpacedElements>
+
+Placeholder
+
+<SpacedElements as="h3">
+  {categoryToIcon["Recent Scandals"]}
+  Recent Scandals
+</SpacedElements>
+
+Placeholder
