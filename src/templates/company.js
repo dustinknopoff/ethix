@@ -7,6 +7,7 @@ import { BASIC } from "../components/shared_css"
 import { apply, numberToGrade } from "../components/math"
 import { BarChart } from "react-chartkick"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+import styled from "styled-components"
 
 const numToWeight = {
   5: 45,
@@ -55,10 +56,10 @@ const Company = ({ data }) => {
       <h1 style={{ fontSize: "72px", paddingTop: "40px" }}>
         {data.mdx.frontmatter.title}
       </h1>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <GraphScore>
         <BarChart
           data={info}
-          colors={["#00919d", "#00c5ce"]}
+          colors={["#4b627d", "#56B8B8"]}
           max={5}
           library={{ fontColor: BASIC }}
           round={2}
@@ -105,10 +106,10 @@ const Company = ({ data }) => {
             </Link>
           </div>
         </div>
-      </div>
-      <article style={{ columnCount: 2 }}>
+      </GraphScore>
+      <Article>
         <MDXRenderer>{data.mdx.body}</MDXRenderer>
-      </article>
+      </Article>
     </Layout>
   )
 }
@@ -134,5 +135,21 @@ export const query = graphql`
         slug
       }
     }
+  }
+`
+export const GraphScore = styled.div`
+  display: flex;
+  alignitems: center;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
+`
+
+export const Article = styled.article`
+  columns: 2;
+
+  @media only screen and (max-width: 768px) {
+    columns: 1;
   }
 `

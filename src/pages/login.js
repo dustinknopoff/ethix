@@ -48,6 +48,16 @@ export const VerticalForm = styled.form`
     `}
   align-content: center;
   justify-content: center;
+
+  ${props =>
+    props.small &&
+    css`
+      width: 15vw;
+
+      @media only screen and (max-width: 768px) {
+        width: 100%;
+      }
+    `}
 `
 
 export default Login

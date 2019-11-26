@@ -31,12 +31,12 @@ const Layout = ({ children, showFooter, displayCenter }) => {
 }
 
 const Main = styled.main`
-  maxheight: 80vmin;
+  maxheight: 80vh;
 
   ${props =>
     props.displayCenter &&
     css`
-      height: 80vmin;
+      height: 80vh;
       display: flex;
       align-items: center;
     `}

@@ -59,7 +59,7 @@ const Info = ({ data, name }) => (
     transitionEnter={false}
     transitionLeave={false}
   >
-    <VerticalForm border={false} style={{ width: "15vw" }}>
+    <VerticalForm border={false} small>
       <label htmlFor="fname">Name</label>
       <input type="text" name="fname" required defaultValue={name} />
       <label htmlFor="age">Age</label>

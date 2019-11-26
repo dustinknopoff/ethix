@@ -15,7 +15,7 @@ const SortableItem = SortableElement(({ value }) => (
 
 const SortableList = SortableContainer(({ items }) => {
   return (
-    <NoHighLight as={"ul"} style={{ listStyle: "number" }}>
+    <NoHighLight as={"ol"} style={{ listStyle: "number" }}>
       {items.map((value, index) => (
         <SortableItem key={`item-${value}`} index={index} value={value} />
       ))}
@@ -23,7 +23,7 @@ const SortableList = SortableContainer(({ items }) => {
   )
 })
 
-const NoHighLight = styled.ul`
+const NoHighLight = styled.ol`
   user-select: none;
   -moz-user-select: none;
 `

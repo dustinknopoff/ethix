@@ -21,23 +21,14 @@ const SearchForm = ({ index, existing }) => {
         search(ipt.current.value)
       }}
     >
-      <input
+      <ResponseInput
         placeholder="Start your search here"
-        style={{ width: "50vw" }}
         ref={ipt}
         defaultValue={existing}
-      ></input>
-      <button
-        style={{
-          position: `relative`,
-          padding: `6px 15px`,
-          left: `-4vw`,
-          border: `none`,
-          background: `none`,
-        }}
-      >
+      ></ResponseInput>
+      <SearchBtn>
         <Search color={PRIMARY} />
-      </button>
+      </SearchBtn>
     </form>
   )
 }
@@ -105,6 +96,30 @@ const List = styled.ul`
   list-style: none;
   overflow-y: scroll;
   max-height: 20vh;
+`
+
+const SearchBtn = styled.button`
+  position: relative;
+  padding: 6px 15px;
+  left: -4vw;
+  border: none;
+  background: none;
+
+  @media only screen and (max-width: 768px) {
+    left: -6vw;
+  }
+
+  @media only screen and (max-width: 375px) {
+    left: -12vw;
+  }
+`
+
+const ResponseInput = styled.input`
+  width: 50vw;
+
+  @media only screen and (max-width: 768px) {
+    width: 75vw;
+  }
 `
 
 export { SearchResultSmall, Results, SearchForm }

@@ -33,7 +33,7 @@ const IndexPage = ({ data }) => {
       <div
         style={{
           display: "flex",
-          height: `80vmin`,
+          height: `80vh`,
           justifyContent: "center",
           flexDirection: "column",
           alignItems: "center",
