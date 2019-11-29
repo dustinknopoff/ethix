@@ -8,7 +8,7 @@ import { UserContext } from "../components/UserContext"
 import styled, { css } from "styled-components"
 import ReactCSSTransitionGroup from "react-addons-css-transition-group"
 import { Button } from "../components/shared_css"
-import { SortableList } from "../components/sorted"
+import { SortableList } from "../components/Sortable"
 import arrayMove from "array-move"
 
 const Profile = () => {
