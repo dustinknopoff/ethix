@@ -8,7 +8,7 @@ import { UserContext } from "../components/UserContext"
 import styled, { css } from "styled-components"
 import ReactCSSTransitionGroup from "react-addons-css-transition-group"
 import { Button } from "../components/shared_css"
-import Sortable from "../components/sortable"
+import SortableList from "../components/sortable"
 import arrayMove from "array-move"
 
 const Profile = () => {
@@ -100,7 +100,7 @@ const Preferences = () => {
         }}
       >
         <VerticalForm border={false}>
-          <Sortable items={state.categories} onSortEnd={onSortEnd} />
+          <SortableList items={state.categories} onSortEnd={onSortEnd} />
         </VerticalForm>
       </div>
     </ReactCSSTransitionGroup>
