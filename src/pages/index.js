@@ -28,6 +28,9 @@ const IndexPage = ({ data }) => {
       })
     }
   }, [])
+
+  console.log(data.siteSearchIndex.index)
+
   return (
     <Layout showFooter>
       <div

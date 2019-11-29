@@ -40,6 +40,12 @@ module.exports = {
             category: node => node.frontmatter.category,
             imgSrc: node => node.frontmatter.imgSrc,
           },
+          MarkdownRemark: {
+            title: node => node.frontmatter.title,
+            slug: node => node.fields.slug,
+            category: node => node.frontmatter.category,
+            imgSrc: node => node.frontmatter.imgSrc,
+          },
         },
       },
     },

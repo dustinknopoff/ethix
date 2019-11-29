@@ -51,11 +51,21 @@ const Footer = () => (
       companies for your age group to sustainability practices, we provide
       scores for over 100 brands defining how they align with you.
     </p>
-    <div>
-      <h3>Placeholder: Labor Info</h3>
-      <h3>Placeholder: Sustainability</h3>
-      <h3>Placeholder: Age Match</h3>
-      <h3>Placeholder: Recent Scandals</h3>
+    <div style={{ width: "100%" }}>
+      <h3>If you care for:</h3>
+      <ul style={{ fontSize: "20px", textAlign: "left" }}>
+        <li>fair trade</li>
+        <li>safe working environments</li>
+        <li>companies who treat their employees right</li>
+        <li>the environment</li>
+        <li>reduce, reuse, recycle</li>
+        <li>family owned business</li>
+        <li>supporting the community</li>
+        <li>
+          supporting brands that align with your social and/or political views
+        </li>
+      </ul>
+      <h2>Ethix can help you find the brand that’s right for you! </h2>
     </div>
   </div>
 )
