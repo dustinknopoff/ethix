@@ -27,5 +27,3 @@ const NoHighLight = styled.ol`
   user-select: none;
   -moz-user-select: none;
 `
-
-export default SortableList
