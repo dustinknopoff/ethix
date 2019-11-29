@@ -13,7 +13,7 @@ const SortableItem = SortableElement(({ value }) => (
   </NoHighLight>
 ))
 
-const SortableList = SortableContainer(({ items }) => {
+export const SortableList = SortableContainer(({ items }) => {
   return (
     <NoHighLight as={"ol"} style={{ listStyle: "number" }}>
       {items.map((value, index) => (
