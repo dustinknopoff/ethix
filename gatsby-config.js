@@ -42,7 +42,7 @@ module.exports = {
           },
           MarkdownRemark: {
             title: node => node.frontmatter.title,
-            slug: node => node.fields.slug,
+            path: node => node.fields.slug,
             category: node => node.frontmatter.category,
             imgSrc: node => node.frontmatter.imgSrc,
           },

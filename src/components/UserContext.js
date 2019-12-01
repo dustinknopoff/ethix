@@ -16,6 +16,7 @@ const UserContextProvider = props => {
       "Local Source",
       "Recent Scandals",
       "Price",
+      "Privacy",
     ],
     defaultCategories: [
       "Labor",
@@ -23,6 +24,7 @@ const UserContextProvider = props => {
       "Local Source",
       "Recent Scandals",
       "Price",
+      "Privacy",
     ],
   })
   return (

@@ -53,7 +53,9 @@ const Footer = () => (
     </p>
     <div style={{ width: "100%" }}>
       <h3>If you care for:</h3>
-      <ul style={{ fontSize: "20px", textAlign: "left" }}>
+      <ul
+        style={{ fontSize: "20px", textAlign: "left", listStyleType: "square" }}
+      >
         <li>fair trade</li>
         <li>safe working environments</li>
         <li>companies who treat their employees right</li>

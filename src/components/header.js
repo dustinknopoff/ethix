@@ -5,7 +5,7 @@ import styled from "styled-components"
 import { UserContext } from "./UserContext"
 import { PRIMARY } from "./shared_css"
 
-const Header = ({ location }) => {
+const Header = () => {
   const [state, setState] = useContext(UserContext)
   const { name, loggedIn } = state
   return (

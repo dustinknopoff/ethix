@@ -18,7 +18,8 @@ const numToWeight = {
 }
 
 const Company = ({ data }) => {
-  const [state] = React.useContext(UserContext)
+  let [state] = React.useContext(UserContext)
+  console.log(data.mdx.frontmatter)
   let info = [
     {
       name: "Default",
@@ -50,7 +51,6 @@ const Company = ({ data }) => {
       let vll = out_of_one_h * weight
       return acc + vll * 5
     }, 0) / state.categories.length
-
   return (
     <Layout>
       <h1 style={{ fontSize: "72px", paddingTop: "40px" }}>
@@ -117,8 +117,8 @@ const Company = ({ data }) => {
 export default Company
 
 export const query = graphql`
-  query CompanyQuery($title: String) {
-    mdx(frontmatter: { title: { eq: $title } }) {
+  query CompanyQuery($slug: String) {
+    mdx(fields: { slug: { eq: $slug } }) {
       frontmatter {
         category
         imgSrc
@@ -128,6 +128,7 @@ export const query = graphql`
         Price
         Sustainability
         title
+        Privacy
       }
       body
       excerpt(pruneLength: 120)
