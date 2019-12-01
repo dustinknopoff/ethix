@@ -14,6 +14,7 @@ export const categoryToIcon = {
   "Local Source": <FontAwesomeIcon icon={fas.faStreetView} />,
   "Recent Scandals": <FontAwesomeIcon icon={fas.faHourglassStart} />,
   "Age Match": <FontAwesomeIcon icon={fas.faHourglassStart} />,
+  Privacy: <FontAwesomeIcon icon={fas.faUserSecret} />,
 }
 
 export const numberToGrade = val => {

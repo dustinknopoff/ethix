@@ -19,7 +19,6 @@ const numToWeight = {
 
 const Company = ({ data }) => {
   let [state] = React.useContext(UserContext)
-  console.log(data.mdx.frontmatter)
   let info = [
     {
       name: "Default",
