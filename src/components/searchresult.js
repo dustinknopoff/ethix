@@ -35,6 +35,21 @@ const SearchForm = ({ index, existing }) => {
 
 const Results = ({ more }) => {
   const [state, setSearch] = useContext(SearchContext)
+  const [showNone, setNone] = React.useState(false)
+
+  React.useEffect(() => {
+    const timer = () => {
+      if (!state.start && state.results.length == 0) {
+        setNone(true)
+        setTimeout(() => {
+          setNone(false)
+        }, 1000)
+      }
+    }
+    timer()
+    return () => clearTimeout(timer)
+  }, [state])
+
   return state.results.length > 0 ? (
     <List>
       {state.results.map(res => (
@@ -49,7 +64,7 @@ const Results = ({ more }) => {
       </li>
     </List>
   ) : (
-    !state.start && <p>No Results Found</p>
+    showNone && <p>No Results Found</p>
   )
 }
 
