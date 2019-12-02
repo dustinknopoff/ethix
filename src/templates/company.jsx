@@ -19,11 +19,15 @@ const numToWeight = {
 
 const Company = ({ data }) => {
   let [state] = React.useContext(UserContext)
+  const attrs = data.mdx.frontmatter.attributes
+  console.log(attrs)
+  const MAX = Array.from(Object.keys(attrs)).filter(ky => attrs[ky] !== null)
+    .length
   let info = [
     {
       name: "Default",
       data: state.defaultCategories.map((val, idx) => {
-        return [val, data.mdx.frontmatter[val.replace(" ", "_")]]
+        return [val, attrs[val.replace(" ", "_")]]
       }),
     },
   ]
@@ -31,29 +35,30 @@ const Company = ({ data }) => {
     info.push({
       name: "Weighted",
       data: state.categories.map((val, idx) => {
-        return [
-          val,
-          parseInt(apply(data.mdx.frontmatter[val.replace(" ", "_")], 5 - idx)),
-        ]
+        return [val, parseInt(apply(attrs[val.replace(" ", "_")], MAX - idx))]
       }),
     })
   let unweighted_sum =
     state.defaultCategories.reduce((acc, val, idx) => {
-      let vll = (data.mdx.frontmatter[val.replace(" ", "_")] / 5) * 100
+      let vll = (attrs[val.replace(" ", "_")] / MAX) * 100
       return acc + vll
     }, 0) / state.defaultCategories.length
   let weighted_sum =
     state.categories.reduce((acc, val, idx) => {
-      if (data.mdx.frontmatter[val.replace(" ", "_")]) {
+      if (attrs[val.replace(" ", "_")] !== null) {
         let out_of_one_h =
-          (parseFloat(data.mdx.frontmatter[val.replace(" ", "_")]) / 5) * 100
-        let weight = numToWeight[5 - idx] / 100
+          (parseFloat(attrs[val.replace(" ", "_")]) / MAX) * 100
+
+        let weight = numToWeight[MAX - idx] / 100
         let vll = out_of_one_h * weight
-        return acc + vll * 5
+        console.log(acc, out_of_one_h, weight, val)
+        return acc + vll * MAX
       } else {
+        console.log(acc, val)
         return acc
       }
     }, 0) / state.categories.length
+  console.log(weighted_sum)
   return (
     <Layout>
       <h1 style={{ fontSize: "72px", paddingTop: "40px" }}>
@@ -82,7 +87,9 @@ const Company = ({ data }) => {
                   {numberToGrade(weighted_sum)}
                 </span>
               </h1>
-              <Link to="/profile">Based on your criteria</Link>
+              <HoverLink as={Link} to="/profile">
+                Based on your criteria
+              </HoverLink>
             </div>
           )}
           <div>
@@ -94,7 +101,8 @@ const Company = ({ data }) => {
             >
               <span>{numberToGrade(unweighted_sum)}</span>
             </h1>
-            <Link
+            <HoverLink
+              as={Link}
               to="/profile"
               style={{
                 textAlign: "center",
@@ -106,7 +114,7 @@ const Company = ({ data }) => {
                 : `Create an account to see how 
               ${data.mdx.frontmatter.title} matches with what you care
               about!`}
-            </Link>
+            </HoverLink>
           </div>
         </div>
       </GraphScore>
@@ -125,13 +133,15 @@ export const query = graphql`
       frontmatter {
         category
         imgSrc
-        Labor
-        Local_Source
-        Recent_Scandals
-        Price
-        Sustainability
+        attributes {
+          Labor
+          Local_Source
+          Recent_Scandals
+          Price
+          Sustainability
+          Privacy
+        }
         title
-        Privacy
       }
       body
       excerpt(pruneLength: 120)
@@ -155,5 +165,10 @@ export const Article = styled.article`
 
   @media only screen and (max-width: 768px) {
     columns: 1;
+  }
+`
+export const HoverLink = styled.a`
+  &:hover {
+    text-decoration: underline;
   }
 `
