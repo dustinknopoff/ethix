@@ -66,6 +66,7 @@ const Footer = () => (
         <li>
           supporting brands that align with your social and/or political views
         </li>
+        <li>transparent privacy policies and practices</li>
       </ul>
       <h2>Ethix can help you find the brand that’s right for you! </h2>
     </div>

@@ -21,10 +21,11 @@ const SearchPage = ({ location, data }) => {
     <Layout>
       <p>Searching</p>
       <div style={{ display: "flex" }}>
-        <div>
-          {data.site.siteMetadata.categories.map(name => (
-            <span key={name}>{name}</span>
-          ))}
+        <div style={{ width: "25vw" }}>
+          <img
+            src="https://res.cloudinary.com/dknopoff/image/upload/v1575319116/ethix/Screen_Shot_2019-12-02_at_3.37.55_PM.png"
+            width="150px"
+          />
         </div>
         <div>
           <SearchForm

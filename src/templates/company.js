@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { graphql, Link } from "gatsby"
 import "chart.js"
 import { UserContext } from "../components/UserContext"
@@ -54,7 +54,6 @@ const Company = ({ data }) => {
         return acc
       }
     }, 0) / state.categories.length
-  console.log(weighted_sum)
   return (
     <Layout>
       <h1 style={{ fontSize: "72px", paddingTop: "40px" }}>

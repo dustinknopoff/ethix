@@ -39,7 +39,7 @@ const Results = ({ more }) => {
 
   React.useEffect(() => {
     const timer = () => {
-      if (!state.start && state.results.length == 0) {
+      if (!state.start && state.results.length === 0) {
         setNone(true)
         setTimeout(() => {
           setNone(false)
