@@ -44,12 +44,17 @@ const Company = ({ data }) => {
     }, 0) / state.defaultCategories.length
   let weighted_sum =
     state.categories.reduce((acc, val, idx) => {
-      let out_of_one_h =
-        (parseFloat(data.mdx.frontmatter[val.replace(" ", "_")]) / 5) * 100
-      let weight = numToWeight[5 - idx] / 100
-      let vll = out_of_one_h * weight
-      return acc + vll * 5
+      if (data.mdx.frontmatter[val.replace(" ", "_")]) {
+        let out_of_one_h =
+          (parseFloat(data.mdx.frontmatter[val.replace(" ", "_")]) / 5) * 100
+        let weight = numToWeight[5 - idx] / 100
+        let vll = out_of_one_h * weight
+        return acc + vll * 5
+      } else {
+        return acc
+      }
     }, 0) / state.categories.length
+  console.log(weighted_sum)
   return (
     <Layout>
       <h1 style={{ fontSize: "72px", paddingTop: "40px" }}>
