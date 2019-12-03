@@ -10,10 +10,11 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import styled from "styled-components"
 
 const numToWeight = {
-  5: 45,
-  4: 25,
-  3: 15,
-  2: 10,
+  6: 44,
+  5: 22,
+  4: 12,
+  3: 10,
+  2: 7,
   1: 5,
 }
 
@@ -26,7 +27,7 @@ const Company = ({ data }) => {
   let info = [
     {
       name: "Default",
-      data: state.defaultCategories.map((val, idx) => {
+      data: state.defaultCategories.map((val, _) => {
         return [val, attrs[val.replace(" ", "_")]]
       }),
     },
@@ -40,24 +41,24 @@ const Company = ({ data }) => {
     })
   let unweighted_sum =
     state.defaultCategories.reduce((acc, val, idx) => {
-      let vll = (attrs[val.replace(" ", "_")] / MAX) * 100
-      return acc + vll
-    }, 0) / state.defaultCategories.length
+      if (attrs[val.replace(" ", "_")] !== null) {
+        let vll = (attrs[val.replace(" ", "_")] / MAX) * 100
+        return acc + vll
+      }
+      return acc
+    }, 0) / MAX
   let weighted_sum =
     state.categories.reduce((acc, val, idx) => {
       if (attrs[val.replace(" ", "_")] !== null) {
         let out_of_one_h =
           (parseFloat(attrs[val.replace(" ", "_")]) / MAX) * 100
-
-        let weight = numToWeight[MAX - idx] / 100
+        let weight = numToWeight[MAX - idx + 1] / 100
         let vll = out_of_one_h * weight
-        console.log(acc, out_of_one_h, weight, val)
         return acc + vll * MAX
       } else {
-        console.log(acc, val)
         return acc
       }
-    }, 0) / state.categories.length
+    }, 0) / MAX
   console.log(weighted_sum)
   return (
     <Layout>
@@ -144,7 +145,6 @@ export const query = graphql`
         title
       }
       body
-      excerpt(pruneLength: 120)
       fields {
         slug
       }

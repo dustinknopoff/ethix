@@ -637,6 +637,10 @@ span {
   color: var(--primary);
 }
 
+article ul {
+  list-style-type: square;
+}
+
 @media only screen and (max-width: 480px) {
   html {
     font-size: 100%;
