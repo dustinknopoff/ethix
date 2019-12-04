@@ -44,11 +44,6 @@ const Footer = () => {
               "https://res.cloudinary.com/dknopoff/image/upload/e_improve,w_300,h_600,c_thumb,g_auto/v1573138563/ethix/omar-lopez-9w20MZ0lsK8-unsplash.jpg"
             }
           />
-          <Panel
-            src={
-              "https://res.cloudinary.com/dknopoff/image/upload/v1573138551/ethix/pierre-chatel-innocenti-LGblf4EH4yk-unsplash.jpg"
-            }
-          />
         </Panels>
         <Flex80>
           <h3 style={{ paddingRight: "15px" }}>Find the right brand for you</h3>
@@ -141,11 +136,12 @@ const Flex80 = styled.div`
 `
 
 const Panels = styled.div`
-  margin-top: 10vh;
   height: 40vh;
   overflow: hidden;
   display: flex;
   max-width: 960px;
+  margin: 0 auto;
+  margin-top: 10vh;
 `
 
 const Panel = styled.img`
