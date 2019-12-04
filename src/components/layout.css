@@ -1,6 +1,6 @@
 :root {
   --primary: #4b627d;
-  --secondary: #01912a;
+  --secondary: #447e7f;
   --basic: #2a2b2a;
   --radius: 4px;
 }
@@ -716,4 +716,18 @@ article ul {
 .pref-appear.pref-appear-active {
   opacity: 1;
   transition: opacity 0.5s ease-in;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Avenir;
+}
+
+h4 {
+  font-size: 26px;
+  color: var(--secondary);
 }
