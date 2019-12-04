@@ -25,6 +25,7 @@ const SearchPage = ({ location, data }) => {
           <img
             src="https://res.cloudinary.com/dknopoff/image/upload/v1575319116/ethix/Screen_Shot_2019-12-02_at_3.37.55_PM.png"
             width="150px"
+            alt="prototype sort and filter"
           />
         </div>
         <div>

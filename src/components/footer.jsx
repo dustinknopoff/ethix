@@ -1,11 +1,12 @@
 import React, { useState, Fragment } from "react"
 import { ChevronDown } from "react-feather"
 import { PRIMARY, BASIC } from "./shared_css"
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 import { categoryToIcon } from "./math"
+import { PlayPreferences } from "../pages/profile"
+import { Link } from "gatsby"
 
 const Footer = () => {
-  const [category, setcategory] = useState("Labor")
   return (
     <div
       style={{
@@ -49,15 +50,18 @@ const Footer = () => {
             }
           />
         </Panels>
-        <h3 style={{ width: "100%" }}>Find the right brand for you</h3>
-        <p>
-          With ethix you build a profile of the things you care about. From
-          companies for your age group to sustainability practices, we provide
-          scores for over 100 brands defining how they align with you.
-        </p>
+        <Flex80>
+          <h3 style={{ paddingRight: "15px" }}>Find the right brand for you</h3>
+          <p style={{ flexGrow: 2, fontSize: "22px" }}>
+            With ethix you build a profile of the things you care about. From
+            companies for your age group to sustainability practices, we provide
+            scores for over 100 brands defining how they align with you.
+          </p>
+        </Flex80>
       </div>
 
-      <Flex80>
+      <Flex80 min={true}>
+        <h3>What We Measure</h3>
         <FlexColumn>
           {Array.from(Object.keys(categoryToInfo)).map(ky => (
             <Fragment>
@@ -80,6 +84,16 @@ const Footer = () => {
             </Fragment>
           ))}
         </FlexColumn>
+      </Flex80>
+
+      <Flex80 min={true}>
+        <h3>Interactive Chart Explorer</h3>
+        <div>
+          <PlayPreferences />
+          <Link to="/login">
+            See it in action on a real company by making an account today!
+          </Link>
+        </div>
       </Flex80>
     </div>
   )
@@ -115,7 +129,11 @@ const FlexColumn = styled.div`
 const Flex80 = styled.div`
   width: 100%;
   display: flex;
-  min-height: 80vh;
+  ${props =>
+    props.min &&
+    css`
+      min-height: 80vh;
+    `}
 
   @media only screen and (max-width: 440px) {
     flex-direction: column;

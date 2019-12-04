@@ -102,31 +102,33 @@ const Criterion = ({ content, max, score }) => (
   </div>
 )
 
-const Company = ({ data }) => {
-  let [state] = React.useContext(UserContext)
-  const attrs = data.mdx.frontmatter.attributes
-  console.log(attrs)
-  const MAX = Array.from(Object.keys(attrs)).filter(ky => attrs[ky] !== null)
-    .length
+export const constructData = (
+  defaultCategories,
+  categories,
+  MAX,
+  attributes,
+  includeWeighted
+) => {
+  let attrs = attributes
   let info = [
     {
       name: "Default",
-      data: state.defaultCategories.map((val, _) => {
+      data: defaultCategories.map((val, _) => {
         return [val, attrs[val.replace(" ", "_")]]
       }),
     },
   ]
-  state.loggedIn &&
+  includeWeighted &&
     info.push({
       name: "Weighted",
-      data: state.categories.map((val, idx) => {
+      data: categories.map((val, idx) => {
         let weight = MAX - idx
         weight = weight <= 0 ? weight + 1 : weight
         return [val, parseFloat(apply(attrs[val.replace(" ", "_")], weight))]
       }),
     })
   let unweighted_sum =
-    state.defaultCategories.reduce((acc, val, idx) => {
+    defaultCategories.reduce((acc, val, idx) => {
       if (attrs[val.replace(" ", "_")] !== null) {
         let vll = (attrs[val.replace(" ", "_")] / MAX) * 100
         return acc + vll
@@ -134,7 +136,7 @@ const Company = ({ data }) => {
       return acc
     }, 0) / MAX
   let weighted_sum =
-    state.categories.reduce((acc, val, idx) => {
+    categories.reduce((acc, val, idx) => {
       if (attrs[val.replace(" ", "_")] !== null) {
         let out_of_one_h =
           (parseFloat(attrs[val.replace(" ", "_")]) / MAX) * 100
@@ -145,6 +147,29 @@ const Company = ({ data }) => {
         return acc
       }
     }, 0) / MAX
+  let to_return = {
+    raw: info[0].data,
+    weighted_sum,
+    unweighted_sum,
+    graphData: info,
+  }
+  if (includeWeighted) to_return["weighted"] = info[1].data
+  return to_return
+}
+
+const Company = ({ data }) => {
+  let [state] = React.useContext(UserContext)
+  const attrs = data.mdx.frontmatter.attributes
+  const MAX = Array.from(Object.keys(attrs)).filter(ky => attrs[ky] !== null)
+    .length
+  const { graphData, weighted_sum, unweighted_sum } = constructData(
+    state.defaultCategories,
+    state.categories,
+    MAX,
+    attrs,
+    state.loggedIn
+  )
+  let info = graphData
   return (
     <Layout>
       <div
