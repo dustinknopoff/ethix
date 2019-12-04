@@ -5,7 +5,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons"
 
 export const MAX = 5
 
-export const apply = (raw, weight) => (raw * weight) / MAX
+export const apply = (raw, weight) => parseFloat((raw * weight) / MAX)
 
 export const categoryToIcon = {
   Labor: <FontAwesomeIcon icon={fas.faUserFriends} />,
@@ -18,7 +18,7 @@ export const categoryToIcon = {
 }
 
 export const numberToGrade = val => {
-  let num = parseInt(val < 1 ? val * 100 : val)
+  let num = parseFloat(val < 1 ? val * 100 : val)
   if (num <= 50) return "F"
   if (num <= 63) return "D-"
   if (num <= 66) return "D"

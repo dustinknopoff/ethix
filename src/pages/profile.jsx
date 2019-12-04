@@ -1,18 +1,15 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useContext, useEffect, Fragment } from "react"
 import { navigate } from "gatsby"
-
 import Layout from "../components/layout"
 import { VerticalForm } from "./login"
 import "chart.js"
 import { UserContext } from "../components/UserContext"
-import styled, { css } from "styled-components"
-import ReactCSSTransitionGroup from "react-addons-css-transition-group"
+import styled from "styled-components"
 import { Button } from "../components/shared_css"
 import { SortableList } from "../components/Sortable"
 import arrayMove from "array-move"
 
 const Profile = () => {
-  const [showPreferences, setShowPreferences] = useState(false)
   const [state] = useContext(UserContext)
   const { loggedIn } = state
 
@@ -22,27 +19,20 @@ const Profile = () => {
 
   return loggedIn ? (
     <Layout>
-      <h3 style={{ marginTop: "20px" }}>Profile</h3>
-      <div style={{ width: "80vw" }}>
-        <HiddenButton
-          onClick={() => setShowPreferences(false)}
-          left
-          active={!showPreferences}
+      <Horzduo>
+        <div style={{ width: "80vw" }}>
+          <h3 style={{ marginTop: "20px" }}>Personal Information</h3>
+          <Info data={state.info} name={state.name} />
+          <h3 style={{ marginTop: "20px" }}>Preferences</h3>
+          <Preferences />
+        </div>
+        <Button
+          style={{ width: "140px", height: "40px" }}
+          onClick={() => navigate("/")}
         >
-          <h5>Info</h5>
-        </HiddenButton>
-        <HiddenButton
-          onClick={() => setShowPreferences(true)}
-          active={showPreferences}
-        >
-          <h5>Preferences</h5>
-        </HiddenButton>
-      </div>
-      {!showPreferences && <Info data={state.info} name={state.name} />}
-      {showPreferences && <Preferences />}
-      <Button style={{ width: "140px" }} onClick={() => navigate("/")}>
-        Start Searching
-      </Button>
+          Save
+        </Button>
+      </Horzduo>
     </Layout>
   ) : (
     <Layout>
@@ -52,13 +42,7 @@ const Profile = () => {
 }
 
 const Info = ({ data, name }) => (
-  <ReactCSSTransitionGroup
-    transitionName="pref"
-    transitionAppear={true}
-    transitionAppearTimeout={500}
-    transitionEnter={false}
-    transitionLeave={false}
-  >
+  <Fragment>
     <VerticalForm border={false} small>
       <label htmlFor="fname">Name</label>
       <input type="text" name="fname" required defaultValue={name} />
@@ -67,7 +51,7 @@ const Info = ({ data, name }) => (
       <label htmlFor="loc">Location</label>
       <input type="text" name="loc" defaultValue={data.location} />
     </VerticalForm>
-  </ReactCSSTransitionGroup>
+  </Fragment>
 )
 
 const Preferences = () => {
@@ -82,13 +66,7 @@ const Preferences = () => {
   }
 
   return (
-    <ReactCSSTransitionGroup
-      transitionName="pref"
-      transitionAppear={true}
-      transitionAppearTimeout={500}
-      transitionEnter={false}
-      transitionLeave={false}
-    >
+    <Fragment>
       <p style={{ marginTop: "20px" }}>
         Click and drag to rearrange these core categories to match your
         priorities.
@@ -103,42 +81,16 @@ const Preferences = () => {
           <SortableList items={state.categories} onSortEnd={onSortEnd} />
         </VerticalForm>
       </div>
-    </ReactCSSTransitionGroup>
+    </Fragment>
   )
 }
 
-// const FormElement = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
+const Horzduo = styled.div`
+  display: flex;
 
-//   > label {
-//     padding-right: 10px;
-//   }
-
-//   > * {
-//     margin: 10px;
-//   }
-// `
-
-const HiddenButton = styled.button`
-  border: none;
-  height: 24px;
-  background: var(--primary);
-  color: white;
-  border-radius: ${props => (props.left ? "4px 0 0 4px" : "0 4px 4px 0")};
-  padding: 5px;
-  ${props =>
-    props.left &&
-    css`
-      border-right: solid 1px white;
-    `};
-  ${props =>
-    !props.active &&
-    css`
-      color: gray;
-      background: #efefef;
-    `}
+  @media only screen and (max-width: 414px) {
+    flex-direction: column;
+  }
 `
 
 export default Profile

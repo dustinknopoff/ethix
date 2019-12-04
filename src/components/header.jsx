@@ -9,35 +9,21 @@ const Header = () => {
   const [state, setState] = useContext(UserContext)
   const { name, loggedIn } = state
   return (
-    <header>
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: `100vw`,
-          padding: `1.45rem 1.0875rem`,
-          display: `flex`,
-          justifyContent: ` space-between`,
-          alignItems: `baseline`,
-          height: "5vh",
-        }}
-      >
-        <span style={{ margin: 0 }}>
-          <Link
-            to="/"
-            style={{
-              textDecoration: `none`,
-              color: PRIMARY,
-            }}
-          >
-            {name ? `Hi, ${name}` : ""}
-          </Link>
-        </span>
-        <Link to="/">
-          <h4 style={{ color: PRIMARY, fontSize: "24px" }}>ethix</h4>
-        </Link>
-        <div>
-          <List>{loggedIn ? <LoggedIn setState={setState} /> : <Fresh />}</List>
-        </div>
+    <header
+      style={{
+        Width: `100vw`,
+        margin: `20px`,
+        display: `flex`,
+        justifyContent: `space-between`,
+        alignItems: `baseline`,
+        height: "5vh",
+      }}
+    >
+      <Link to="/">
+        <h4 style={{ color: PRIMARY, fontSize: "24px" }}>ethix</h4>
+      </Link>
+      <div>
+        <List>{loggedIn ? <LoggedIn setState={setState} /> : <Fresh />}</List>
       </div>
     </header>
   )

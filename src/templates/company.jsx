@@ -4,10 +4,11 @@ import "chart.js"
 import { UserContext } from "../components/UserContext"
 import Layout from "../components/layout"
 import { BASIC } from "../components/shared_css"
-import { apply, numberToGrade } from "../components/math"
+import { apply, numberToGrade, categoryToIcon } from "../components/math"
 import { BarChart } from "react-chartkick"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styled from "styled-components"
+import Popup from "reactjs-popup"
 
 const numToWeight = {
   6: 44,
@@ -17,6 +18,89 @@ const numToWeight = {
   2: 7,
   1: 5,
 }
+
+const Raw = ({ content, max, score }) => (
+  <div>
+    <h3>How we calculate a raw score</h3>
+    <p>
+      All categories are rated by our experts on a scale of 1 to 5. We then
+      average these scores to generate a letter grade.
+    </p>
+    <ul style={{ listStyleType: "none" }}>
+      {content.map(([name, val], idx) => {
+        if (val) {
+          return (
+            <li style={{ padding: "5px" }}>
+              <span>
+                {categoryToIcon[name]} {name}
+              </span>
+              : <span style={{ paddingRight: "5px" }}>{(val / max) * 100}</span>
+            </li>
+          )
+        }
+      })}
+    </ul>
+    <hr />
+  </div>
+)
+
+const Criterion = ({ content, max, score }) => (
+  <div>
+    <h3>How we calculate a weighted score</h3>
+    <p>
+      All categories are rated by our experts on a scale of 1 to 5. We then
+      weigh these scores based on your ordering on the{" "}
+      <Link to="/profile">profile page.</Link>
+    </p>
+    <div className="crits">
+      <div>
+        <h5 style={{ textAlign: "center", fontSize: "22px", color: BASIC }}>
+          Raw
+        </h5>
+        <ul style={{ listStyleType: "none" }}>
+          {content[0].data.map(([name, val], idx) => {
+            if (val) {
+              return (
+                <li style={{ padding: "5px" }} key={idx}>
+                  <span>
+                    {categoryToIcon[name]} {name}
+                  </span>
+                  :{" "}
+                  <span style={{ paddingRight: "5px" }}>
+                    {(val / max) * 100}
+                  </span>
+                </li>
+              )
+            }
+          })}
+        </ul>
+      </div>
+      <div>
+        <h5 style={{ textAlign: "center", fontSize: "22px", color: BASIC }}>
+          Weighed
+        </h5>
+        <ul style={{ listStyleType: "none" }}>
+          {content[1].data.map(([name, val], idx) => {
+            if (val) {
+              return (
+                <li style={{ padding: "5px" }} key={idx}>
+                  <span>
+                    {categoryToIcon[name]} {name}
+                  </span>
+                  :{" "}
+                  <span style={{ paddingRight: "5px" }}>
+                    {(val / max) * 100}
+                  </span>
+                </li>
+              )
+            }
+          })}
+        </ul>
+      </div>
+    </div>
+    <hr />
+  </div>
+)
 
 const Company = ({ data }) => {
   let [state] = React.useContext(UserContext)
@@ -36,7 +120,9 @@ const Company = ({ data }) => {
     info.push({
       name: "Weighted",
       data: state.categories.map((val, idx) => {
-        return [val, parseInt(apply(attrs[val.replace(" ", "_")], MAX - idx))]
+        let weight = MAX - idx
+        weight = weight <= 0 ? weight + 1 : weight
+        return [val, parseFloat(apply(attrs[val.replace(" ", "_")], weight))]
       }),
     })
   let unweighted_sum =
@@ -59,12 +145,24 @@ const Company = ({ data }) => {
         return acc
       }
     }, 0) / MAX
-  console.log(weighted_sum)
   return (
     <Layout>
-      <h1 style={{ fontSize: "72px", paddingTop: "40px" }}>
-        {data.mdx.frontmatter.title}
-      </h1>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <h1 style={{ fontSize: "8vw", paddingTop: "40px" }}>
+          {data.mdx.frontmatter.title}
+        </h1>
+        <img
+          src={data.mdx.frontmatter.imgSrc}
+          alt={`${data.mdx.frontmatter.title}'s logo`}
+          className="logo"
+        />
+      </div>
       <GraphScore>
         <BarChart
           data={info}
@@ -73,49 +171,52 @@ const Company = ({ data }) => {
           library={{ fontColor: BASIC }}
           round={2}
         />
-        <div
-          style={{
-            flexGrow: 2,
-            padding: "80px",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
+        <div className="scores">
           {state.loggedIn && (
             <div>
-              <h1 style={{ fontSize: "10vmin", textAlign: "center" }}>
-                <span style={{ color: "#4a7b7c" }}>
-                  {numberToGrade(weighted_sum)}
-                </span>
+              <h1 style={{ fontSize: "6vw", textAlign: "center" }}>
+                <span>{numberToGrade(weighted_sum)}</span>
               </h1>
-              <HoverLink as={Link} to="/profile">
-                Based on your criteria
-              </HoverLink>
+              <Popup
+                trigger={
+                  <button className="button">Based on your criteria</button>
+                }
+                modal
+              >
+                <Criterion content={info} max={MAX} score={weighted_sum} />
+              </Popup>
             </div>
           )}
           <div>
             <h1
               style={{
-                fontSize: state.loggedIn ? "5vmin" : "10vmin",
+                fontSize: "6vw",
                 textAlign: "center",
               }}
             >
               <span>{numberToGrade(unweighted_sum)}</span>
             </h1>
-            <HoverLink
-              as={Link}
-              to="/profile"
-              style={{
-                textAlign: "center",
-                fontSize: state.loggedIn && "18px",
-              }}
-            >
-              {state.loggedIn
-                ? "Raw Score"
-                : `Create an account to see how 
+            {state.loggedIn ? (
+              <Popup
+                trigger={<button className="button">Raw Score</button>}
+                modal
+              >
+                <Raw content={info[0].data} max={MAX} score={unweighted_sum} />
+              </Popup>
+            ) : (
+              <HoverLink
+                as={Link}
+                to="/profile"
+                style={{
+                  textAlign: "center",
+                  fontSize: state.loggedIn && "18px",
+                }}
+              >
+                {`Create an account to see how 
               ${data.mdx.frontmatter.title} matches with what you care
               about!`}
-            </HoverLink>
+              </HoverLink>
+            )}
           </div>
         </div>
       </GraphScore>
@@ -170,5 +271,9 @@ export const Article = styled.article`
 export const HoverLink = styled.a`
   &:hover {
     text-decoration: underline;
+  }
+
+  @media only screen and (max-width: 440px) {
+    width: 30vw;
   }
 `

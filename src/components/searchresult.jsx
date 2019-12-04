@@ -2,7 +2,6 @@ import React, { useContext, useRef } from "react"
 import { SearchContext } from "./SearchContext"
 import { Link, navigate } from "gatsby"
 import styled from "styled-components"
-import { PRIMARY } from "./shared_css"
 import { Search } from "react-feather"
 import useSearch from "../components/search"
 
@@ -27,7 +26,7 @@ const SearchForm = ({ index, existing }) => {
         defaultValue={existing}
       ></ResponseInput>
       <SearchBtn>
-        <Search color={PRIMARY} />
+        <Search color={"white"} />
       </SearchBtn>
     </form>
   )
@@ -77,7 +76,7 @@ const SearchResultSmall = ({ data, setSearch }) => {
         setSearch(state => ({ ...state, query: ``, results: [], start: true }))
       }}
     >
-      <img src={imgSrc} style={{ width: "10vw" }} alt={`${title}'s logo`} />
+      <img src={imgSrc} alt={`${title}'s logo`} className="logo" />
       <div style={{ paddingLeft: "10px" }}>
         <h5
           style={{
@@ -116,17 +115,10 @@ const List = styled.ul`
 const SearchBtn = styled.button`
   position: relative;
   padding: 6px 15px;
-  left: -4vw;
   border: none;
-  background: none;
-
-  @media only screen and (max-width: 768px) {
-    left: -6vw;
-  }
-
-  @media only screen and (max-width: 375px) {
-    left: -12vw;
-  }
+  left: -4px;
+  background: var(--primary);
+  border-radius: var(--radius);
 `
 
 const ResponseInput = styled.input`

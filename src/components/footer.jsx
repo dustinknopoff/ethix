@@ -2,6 +2,7 @@ import React from "react"
 import { ChevronDown } from "react-feather"
 import { PRIMARY, BASIC } from "./shared_css"
 import styled from "styled-components"
+import { categoryToIcon } from "./math"
 
 const Footer = () => (
   <div
@@ -56,17 +57,22 @@ const Footer = () => (
       <ul
         style={{ fontSize: "20px", textAlign: "left", listStyleType: "square" }}
       >
-        <li>fair trade</li>
-        <li>safe working environments</li>
-        <li>companies who treat their employees right</li>
-        <li>the environment</li>
-        <li>reduce, reuse, recycle</li>
-        <li>family owned business</li>
-        <li>supporting the community</li>
+        <li>fair trade {categoryToIcon["Labor"]}</li>
+        <li>safe working environments {categoryToIcon["Labor"]}</li>
         <li>
-          supporting brands that align with your social and/or political views
+          companies who treat their employees right {categoryToIcon["Labor"]}
         </li>
-        <li>transparent privacy policies and practices</li>
+        <li>the environment {categoryToIcon["Sustainability"]}</li>
+        <li>reduce, reuse, recycle {categoryToIcon["Sustainability"]}</li>
+        <li>family owned business {categoryToIcon["Local Source"]}</li>
+        <li>supporting the community {categoryToIcon["Local Source"]}</li>
+        <li>
+          supporting brands that align with your social and/or political views{" "}
+          {categoryToIcon["Recent Scandals"]}
+        </li>
+        <li>
+          transparent privacy policies and practices {categoryToIcon["Privacy"]}
+        </li>
       </ul>
       <h2>Ethix can help you find the brand that’s right for you! </h2>
     </div>
