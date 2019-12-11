@@ -27,37 +27,10 @@ const Footer = () => {
         <span>Tell Me More</span>
         <ChevronDown size={60} color={PRIMARY} />
       </a>
-      <div style={{ minHeight: "80vh" }}>
-        <Panels name="info" id="info">
-          <Panel
-            src={
-              "https://res.cloudinary.com/dknopoff/image/upload/e_improve,w_300,h_600,c_thumb,g_auto/v1573138553/ethix/marianne-krohn-ZEn36ZMaloc-unsplash.jpg"
-            }
-          />
-          <Panel
-            src={
-              "https://res.cloudinary.com/dknopoff/image/upload/e_improve,w_300,h_600,c_thumb,g_auto/v1573138562/ethix/christopher-burns-8KfCR12oeUM-unsplash.jpg"
-            }
-          />
-          <Panel
-            src={
-              "https://res.cloudinary.com/dknopoff/image/upload/e_improve,w_300,h_600,c_thumb,g_auto/v1573138563/ethix/omar-lopez-9w20MZ0lsK8-unsplash.jpg"
-            }
-          />
-        </Panels>
-        <Flex80>
-          <h3 style={{ paddingRight: "15px" }}>Find the right brand for you</h3>
-          <p style={{ flexGrow: 2, fontSize: "22px" }}>
-            With ethix you build a profile of the things you care about. From
-            companies for your age group to sustainability practices, we provide
-            scores for over 100 brands defining how they align with you.
-          </p>
-        </Flex80>
-      </div>
 
-      <Flex80 min={true}>
+      <Flex80 min={true} id="info">
         <h3>What We Measure</h3>
-        <FlexColumn>
+        <FlexColumn style={{ flexGrow: 2 }}>
           {Array.from(Object.keys(categoryToInfo)).map(ky => (
             <Fragment>
               <h4
@@ -85,9 +58,6 @@ const Footer = () => {
         <h3>Interactive Chart Explorer</h3>
         <div>
           <PlayPreferences />
-          <Link to="/login">
-            See it in action on a real company by making an account today!
-          </Link>
         </div>
       </Flex80>
     </div>

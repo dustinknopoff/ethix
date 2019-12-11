@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, Fragment } from "react"
-import { navigate } from "gatsby"
+import { navigate, Link } from "gatsby"
 import Layout from "../components/layout"
 import { VerticalForm } from "./login"
 import "chart.js"
@@ -135,16 +135,20 @@ export const PlayPreferences = () => {
     <div>
       <BarChart
         data={graphData}
-        colors={["#4b627d", "#56B8B8"]}
+        colors={["#A48C6C", "#56B8B8"]}
         max={5}
         library={{ fontColor: BASIC }}
         round={2}
       />
       <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <span style={{ paddingLeft: "3.5vw" }}>Bad</span>
+        <span>Good</span>
+      </div>
+      <div style={{ marginTop: "25px" }}>
         <div>
           <h5>
             Raw Score{" "}
-            <span style={{ fontSize: "22px" }}>
+            <span style={{ fontSize: "2vw" }}>
               {numberToGrade(unweighted_sum)}
             </span>
           </h5>
@@ -152,7 +156,7 @@ export const PlayPreferences = () => {
         <div>
           <h5>
             Weighted Score{" "}
-            <span style={{ fontSize: "22px" }}>
+            <span style={{ fontSize: "2vw" }}>
               {numberToGrade(weighted_sum)}
             </span>
           </h5>
@@ -171,6 +175,9 @@ export const PlayPreferences = () => {
         <VerticalForm border={false}>
           <SortableList items={state.categories} onSortEnd={onSortEnd} />
         </VerticalForm>
+        <Link to="/login">
+          See it in action on a real company by making an account today!
+        </Link>
       </div>
     </div>
   )

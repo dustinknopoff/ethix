@@ -179,7 +179,7 @@ const Company = ({ data }) => {
           alignItems: "center",
         }}
       >
-        <h1 style={{ fontSize: "8vw", paddingTop: "40px" }}>
+        <h1 style={{ fontSize: "4vw", paddingTop: "40px" }}>
           {data.mdx.frontmatter.title}
         </h1>
         <img
@@ -191,7 +191,7 @@ const Company = ({ data }) => {
       <GraphScore>
         <BarChart
           data={info}
-          colors={["#4b627d", "#56B8B8"]}
+          colors={["#A48C6C", "#56B8B8"]}
           max={5}
           library={{ fontColor: BASIC }}
           round={2}
